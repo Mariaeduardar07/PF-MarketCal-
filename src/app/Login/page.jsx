@@ -20,7 +20,6 @@ export default function Login() {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,7 +41,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://marketcal-back-end.onrender.com/",
+        "http://localhost:4000/auth/login",
         {
           email: form.email,
           password: form.password,
@@ -54,23 +53,18 @@ export default function Login() {
 
       const { token, userExists } = response.data;
 
-      if (!token || !userExists) {
-        throw new Error("Erro: resposta da API incompleta.");
+      if (!token) {
+        throw new Error("Erro: token não recebido da API.");
       }
 
-      // Salvar token e usuário no localStorage
+      // Armazenar token no localStorage
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(userExists));
-
-      // Lembrar-me
-      if (rememberMe) {
-        localStorage.setItem("rememberEmail", form.email);
-      } else {
-        localStorage.removeItem("rememberEmail");
+      if (userExists) {
+        localStorage.setItem("userExists", JSON.stringify(userExists));
       }
 
       setSuccess("Login realizado com sucesso! Redirecionando...");
-      setTimeout(() => router.push("/pageExplore"), 1500);
+      setTimeout(() => router.push("/dashboard"), 1500);
     } catch (err) {
       if (err.response?.data?.error) {
         setError(err.response.data.error);
@@ -147,21 +141,6 @@ export default function Login() {
             </div>
           </div>
 
-          <div className={styles.rememberForgot}>
-            <label className={styles.rememberLabel}>
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                disabled={loading}
-              />
-              Lembrar-me
-            </label>
-            <Link href="/forgot-password" className={styles.forgotLink}>
-              Esqueci minha senha
-            </Link>
-          </div>
-
           {error && <p className={styles.errorMessage}>{error}</p>}
           {success && <p className={styles.successMessage}>{success}</p>}
 
@@ -177,7 +156,7 @@ export default function Login() {
 
           <p style={{ marginTop: "15px", textAlign: "center" }}>
             Não tem conta?{" "}
-            <Link href="/cadastro" style={{ color: "#007bff", fontWeight: "bold" }}>
+            <Link href="/cadastro" style={{ color: "#2d6962", fontWeight: "bold" }}>
               Faça cadastro
             </Link>
           </p>
