@@ -181,7 +181,7 @@
 }
 
 .button:hover:not(:disabled) {
-  background-color: #63cbbf;
+  background-color: #63cbbfad;
   transform: translateY(-2px);
 }
 
@@ -189,6 +189,16 @@
   background-color: #a8d9d0;
   cursor: not-allowed;
   transform: none;
+}
+
+.successMessage {
+  color: #2d6962;
+  background-color: rgb(238, 255, 242);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  border-left: 4px solid #2d6962;
 }
 
 .spinner {

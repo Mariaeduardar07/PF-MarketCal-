@@ -116,44 +116,6 @@
   opacity: 0.5;
 }
 
-.rememberForgot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem;
-}
-
-.rememberLabel {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  color: #2d6962;
-}
-
-.rememberLabel input[type="checkbox"] {
-  cursor: pointer;
-  width: 1rem;
-  height: 1rem;
-}
-
-.rememberLabel input[type="checkbox"]:disabled {
-  cursor: not-allowed;
-}
-
-.forgotLink {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.forgotLink:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
 .errorMessage {
   color: #dc3545;
   background-color: #f8d7da;
@@ -165,13 +127,13 @@
 }
 
 .successMessage {
-  color: #155724;
-  background-color: #d4edda;
+  color: #2d6962;
+  background-color: rgb(238, 255, 242);
   padding: 0.75rem 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
   font-size: 0.875rem;
-  border-left: 4px solid #28a745;
+  border-left: 4px solid #2d6962;
 }
 
 .button {

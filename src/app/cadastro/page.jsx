@@ -59,7 +59,7 @@ export default function Register() {
 
     try {
       const response = await axios.post(
-        "https://marketcal-back-end.onrender.com/register",
+        "http://localhost:4000/auth/register",
         {
           name: form.name,
           email: form.email,
@@ -70,23 +70,31 @@ export default function Register() {
         }
       );
 
+      console.log("Resposta completa:", response);
+      console.log("Dados da resposta:", response.data);
+
       const { token, user } = response.data;
 
-      if (!token) {
-        throw new Error("Erro: resposta da API incompleta.");
+      // Se houver token e user, salva no localStorage
+      if (token && user) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
       }
 
-      // Salvar token e usuário no localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
       setSuccess("Conta criada com sucesso! Redirecionando...");
-      setTimeout(() => router.push("/"), 1500);
+      setTimeout(() => router.push("/login"), 1500);
     } catch (err) {
+      console.error("Erro completo:", err);
+      console.error("Response data:", err.response?.data);
+      
       if (err.response?.data?.error) {
         setError(err.response.data.error);
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message);
       } else if (err.code === "ERR_NETWORK") {
         setError("Erro de conexão. Verifique se o servidor está rodando.");
+      } else if (err.message) {
+        setError(err.message);
       } else {
         setError("Erro ao fazer cadastro. Tente novamente.");
       }
@@ -208,7 +216,7 @@ export default function Register() {
 
           <p style={{ marginTop: "15px", textAlign: "center" }}>
             Já tem conta?{" "}
-            <Link href="/login" style={{ color: "#007bff", fontWeight: "bold" }}>
+            <Link href="/login" style={{ color: "#2d6962", fontWeight: "bold" }}>
               Faça login
             </Link>
           </p>
