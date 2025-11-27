@@ -1,12 +1,14 @@
-import Image from "next/image";
-import Header from "@/components/Header";
-import SideHeader from "@/components/SideHeader";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div>
-      <Header />
-      <SideHeader />
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    // Redireciona automaticamente para a página de login
+    router.push("/Login");
+  }, [router]);
+
+  return null;
 }
