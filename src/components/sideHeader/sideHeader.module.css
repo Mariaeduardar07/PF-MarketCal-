@@ -1,42 +1,231 @@
-.header {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: 15rem;
-    height: 100%;
-    background-color: #f4f4f4;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+/* ===== SIDEBAR - ESTILO DO SITE ===== */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #84e7d2 0%, #5dd4c0 40%, #47c4ac 100%);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* Círculos decorativos */
+.decorCircle1 {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  top: -60px;
+  left: -60px;
+  pointer-events: none;
+}
+
+.decorCircle2 {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  bottom: 60px;
+  right: -50px;
+  pointer-events: none;
+}
+
+.sidebarContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem 1rem;
+}
+
+/* ===== LOGO ===== */
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 1.5rem;
 }
 
 .logo {
-    margin-bottom: 20px;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  margin-bottom: 0.75rem;
 }
 
+.brandName {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== NAVEGAÇÃO ===== */
 .nav {
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.navLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 1.5px;
+  padding: 0 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .navList {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  position: relative;
 }
 
 .navLink:hover {
-    background-color: #ddd;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: translateX(4px);
 }
 
 .navLink.active {
-    background-color: #ccc;
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.navLink.active .navText {
+  transform: scale(1.02);
+}
+
+.navText {
+  flex: 1;
+  transition: transform 0.2s;
+}
+
+/* ===== RODAPÉ ===== */
+.sidebarFooter {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: auto;
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.logoutBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .brandName {
+    font-size: 1.2rem;
+  }
+
+  .navLink {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80px;
+  }
+
+  .logoSection {
+    padding: 1rem 0 1.5rem;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0;
+  }
+
+  .brandName {
+    display: none;
+  }
+
+  .navLabel {
+    display: none;
+  }
+
+  .navLink {
+    justify-content: center;
+    padding: 0.875rem;
+  }
+
+  .navText {
+    display: none;
+  }
+
+  .navIcon {
+    width: auto;
+    font-size: 1.4rem;
+  }
+
+  .decorCircle1 {
+    width: 100px;
+    height: 100px;
+    top: -30px;
+    left: -30px;
+  }
+
+  .decorCircle2 {
+    width: 80px;
+    height: 80px;
+    bottom: 100px;
+    right: -30px;
+  }
 }

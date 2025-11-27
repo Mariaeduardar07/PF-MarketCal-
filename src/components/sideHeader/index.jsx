@@ -2,44 +2,70 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import styles from './sideHeader.module.css';
 
 export default function SideHeader() {
+  const pathname = usePathname();
+
+  const isActive = (path) => pathname === path;
+
   return (
-    <header className={styles.header}>
-      <div className={styles.headerContent}>
-        <div className={styles.logo}>
+    <aside className={styles.sidebar}>
+      {/* Elementos decorativos */}
+      <div className={styles.decorCircle1}></div>
+      <div className={styles.decorCircle2}></div>
+      
+      <div className={styles.sidebarContent}>
+        {/* Logo */}
+        <div className={styles.logoSection}>
           <Image
             src="/image/logo.png"
-            alt="Logo do MarketCal"
-            width={215}
-            height={215}
-            className={styles.logoImg}
+            alt="MarketCal"
+            width={200}
+            height={200}
+            className={styles.logo}
             priority
           />
         </div>
-        
-        {/* Navegação Desktop */}
+
+        {/* Navegação */}
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li className={styles.navItem}>
-            <Link href="/dashboard" className={styles.navLink}>
-            Dashboard
+            <li>
+              <Link 
+                href="/dashboard" 
+                className={`${styles.navLink} ${isActive('/dashboard') ? styles.active : ''}`}
+              >
+                <span className={styles.navText}>Dashboard</span>
               </Link>
             </li>
-            <li className={styles.navItem}>
-            <Link href="/pageTask" className={styles.navLink}>
-            Feed
+            <li>
+              <Link 
+                href="/pageTask" 
+                className={`${styles.navLink} ${isActive('/pageTask') ? styles.active : ''}`}
+              >
+                <span className={styles.navText}>Feed</span>
               </Link>
             </li>
-            <li className={styles.navItem}>
-            <Link href="/pageExplore" className={styles.navLink}>
-                Influencers
+            <li>
+              <Link 
+                href="/pageExplore" 
+                className={`${styles.navLink} ${isActive('/pageExplore') ? styles.active : ''}`}
+              >
+                <span className={styles.navText}>Influencers</span>
               </Link>
             </li>
           </ul>
         </nav>
+
+        {/* Rodapé da sidebar */}
+        <div className={styles.sidebarFooter}>
+          <Link href="/Login" className={styles.logoutBtn}>
+            <span className={styles.navText}>Sair</span>
+          </Link>
+        </div>
       </div>
-    </header>
+    </aside>
   );
 }
