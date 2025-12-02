@@ -1,73 +1,65 @@
 "use client";
-import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import styles from "./PostStatusDistribution.module.css";
 
-export default function PostStatusDistribution({ data }) {
-  const chartData = data || [
-    { name: "Agendadas", value: 35, color: "#5dd4c0" },
-    { name: "Publicadas", value: 45, color: "#47c4ac" },
-    { name: "Rascunhos", value: 20, color: "#84e7d2" },
+export default function PostStatusDistribution({ data = [] }) {
+  const defaultData = [
+    { name: "Agendadas", value: 0, color: "#5dd4c0" },
+    { name: "Publicadas", value: 0, color: "#47c4ac" },
+    { name: "Rascunhos", value: 0, color: "#84e7d2" },
   ];
 
-  const COLORS = chartData.map((item) => item.color);
+  const chartData = data && data.length > 0 ? data.map((item, index) => ({
+    ...item,
+    color: ["#5dd4c0", "#47c4ac", "#84e7d2"][index] || "#5dd4c0"
+  })) : defaultData;
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-    const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={14} fontWeight={600}>
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
+  const total = chartData.reduce((sum, item) => sum + item.value, 0);
+  const maxValue = Math.max(...chartData.map(item => item.value), 1);
 
   return (
-    <div className={styles.chartContainer}>
+    <div className={styles.container}>
+      {/* Header Minimalista */}
       <div className={styles.header}>
-        <h2 className={styles.title}>Distribuição de Status</h2>
+        <h3 className={styles.title}>Status</h3>
+        <span className={styles.total}>{total}</span>
       </div>
-      <ResponsiveContainer width="100%" height={280}>
-        <PieChart>
-          <Pie
-            data={chartData}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={95}
-            innerRadius={50}
-            fill="#8884d8"
-            dataKey="value"
-            paddingAngle={3}
-          >
-            {chartData.map((entry, index) => (
-              <Cell 
-                key={`cell-${index}`} 
-                fill={COLORS[index % COLORS.length]} 
-                stroke="none"
+
+      {/* Gráfico de Barras Verticais Minimalista */}
+      <div className={styles.chartContainer}>
+        {chartData.map((item, index) => {
+          const percentage = total > 0 ? Math.round((item.value / total) * 100) : 0;
+          const barHeight = total > 0 ? (item.value / maxValue) * 100 : 0;
+
+          return (
+            <div 
+              key={index} 
+              className={styles.barColumn}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              {/* Barra Vertical */}
+              <div className={styles.barTrack}>
+                <div 
+                  className={styles.barFill}
+                  style={{ 
+                    height: `${barHeight}%`,
+                    background: item.color,
+                  }}
+                />
+              </div>
+
+              {/* Valor */}
+              <span className={styles.value}>{item.value}</span>
+
+              {/* Label */}
+              <div 
+                className={styles.dot}
+                style={{ background: item.color }}
               />
-            ))}
-          </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "#ffffff",
-              border: "none",
-              borderRadius: "12px",
-              color: "#1f2937",
-              boxShadow: "0 4px 20px rgba(93, 212, 192, 0.2)",
-            }}
-            labelStyle={{ color: "#47c4ac", fontWeight: 600 }}
-          />
-          <Legend 
-            wrapperStyle={{ paddingTop: '20px' }}
-            iconType="circle"
-            iconSize={10}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+              <span className={styles.label}>{item.name}</span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

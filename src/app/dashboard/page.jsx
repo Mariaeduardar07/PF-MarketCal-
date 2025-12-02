@@ -121,12 +121,6 @@ export default function Dashboard() {
                     </div>
 
                     {/* Ações */}
-                    <div className={styles.actionCard}>
-                      <div className={styles.actionIcon}>✏️</div>
-                      <h3 className={styles.actionTitle}>Criar Postagem</h3>
-                      <p className={styles.actionDesc}>Agende conteúdo</p>
-                      <button className={styles.actionBtn}>Criar</button>
-                    </div>
                     
                     <div className={styles.actionCardAlt}>
                       <div className={styles.actionIcon}>🔗</div>
@@ -139,12 +133,12 @@ export default function Dashboard() {
 
                 {/* Seção Secundária */}
                 <section className={styles.secondarySection}>
-                  {/* Distribuição de Status */}
-                  <div className={styles.chartCard}>
+                  {/* Distribuição de Status - Card Menor */}
+                  <div className={styles.chartCardSmall}>
                     <PostStatusDistribution data={dashboardData?.statusDistribution} />
                   </div>
 
-                  {/* Contas Sociais */}
+                  {/* Contas Sociais - Card Maior */}
                   <div className={styles.chartCard}>
                     <SocialAccountsOverview accounts={dashboardData?.accounts} />
                   </div>
