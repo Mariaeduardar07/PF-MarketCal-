@@ -51,7 +51,7 @@ export default function Login() {
         }
       );
 
-      const { token, userExists } = response.data;
+      const { token, userExists, user } = response.data;
 
       if (!token) {
         throw new Error("Erro: token não recebido da API.");
@@ -59,8 +59,25 @@ export default function Login() {
 
       // Armazenar token no localStorage
       localStorage.setItem("token", token);
-      if (userExists) {
-        localStorage.setItem("userExists", JSON.stringify(userExists));
+      // Salva objeto `user` se a API retornar. Caso contrário, tenta aproveitar `userExists`.
+      if (user) {
+        try {
+          localStorage.setItem("user", JSON.stringify(user));
+        } catch (e) {
+          console.error('Não foi possível salvar user no localStorage:', e);
+        }
+      } else if (userExists) {
+        // userExists pode ser um objeto ou apenas um flag/string; tenta extrair nome
+        try {
+          const parsed = typeof userExists === 'string' ? JSON.parse(userExists) : userExists;
+          if (parsed && parsed.name) {
+            localStorage.setItem('user', JSON.stringify(parsed));
+          } else {
+            localStorage.setItem('userExists', JSON.stringify(userExists));
+          }
+        } catch (e) {
+          localStorage.setItem('userExists', JSON.stringify(userExists));
+        }
       }
 
       setSuccess("Login realizado com sucesso! Redirecionando...");
