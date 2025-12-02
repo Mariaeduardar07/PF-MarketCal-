@@ -2,9 +2,9 @@
  display: flex;
  align-items: center;
  justify-content: space-between;
- padding: 16px 32px;
+ padding: 16px 48px 16px 44px;
  background-color: #ffffff;
- gap: 24px;
+ gap: 32px;
 }
 
 .title {
@@ -48,8 +48,8 @@
  background-color: #f3f4f6;
  border-radius: 8px;
  padding: 8px 12px;
- min-width: 350px;   
- max-width: 600px;  
+ min-width: 400px;   
+ max-width: 700px;  
 }
 
 .searchInput {

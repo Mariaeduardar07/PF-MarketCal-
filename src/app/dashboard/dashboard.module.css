@@ -10,13 +10,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 260px;
+  margin-left: 280px;
 }
 
 .pageContainer {
   flex: 1;
   background: #f9fafb;
-  padding: 32px 24px;
+  padding: 32px 24px 32px 44px;
   overflow-y: auto;
 }
 

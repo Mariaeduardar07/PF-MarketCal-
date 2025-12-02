@@ -82,7 +82,7 @@ export default function Register() {
       }
 
       setSuccess("Conta criada com sucesso! Redirecionando...");
-      setTimeout(() => router.push("/login"), 1500);
+      setTimeout(() => router.push("/Login"), 1500);
     } catch (err) {
       console.error("Erro completo:", err);
       console.error("Response data:", err.response?.data);
