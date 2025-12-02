@@ -4,8 +4,8 @@
   min-height: 100vh;
   max-width: 1400px;
   margin: 0 auto;
-  margin-left: 15rem; /* Espaço para o SideHeader fixo */
-  padding-left: 40px; /* Espaço adicional para não colar no SideHeader */
+  margin-left: 280px; /* Espaço para o SideHeader fixo */
+  padding-left: 44px; /* Espaço adicional para não colar no SideHeader */
 }
 
 .loading {
