@@ -12,10 +12,6 @@ export default function SideHeader() {
 
   return (
     <aside className={styles.sidebar}>
-      {/* Elementos decorativos */}
-      <div className={styles.decorCircle1}></div>
-      <div className={styles.decorCircle2}></div>
-      
       <div className={styles.sidebarContent}>
         {/* Logo */}
         <div className={styles.logoSection}>
