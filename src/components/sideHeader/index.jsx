@@ -18,8 +18,8 @@ export default function SideHeader() {
           <Image
             src="/image/logo.png"
             alt="MarketCal"
-            width={200}
-            height={200}
+            width={550}
+            height={550}
             className={styles.logo}
             priority
           />
