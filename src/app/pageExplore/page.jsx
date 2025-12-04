@@ -27,13 +27,12 @@ export default function PageExplore() {
         }
         
         const data = await response.json();
-        console.log('Users carregados:', data);
         
         // Mapear os dados dos usuários para o formato esperado
         const mappedData = Array.isArray(data) ? data.map(user => ({
           id: user.id || user._id,
           name: user.name || user.username || 'Sem nome',
-          avatar: user.avatar || user.profileImage || '/image/logo.png',
+          avatar: user.imageUrl || user.avatar || user.profileImage || '/image/logo.png',
           category: user.category || user.niche || 'Influencer',
           followers: user.followers || user.followersCount || '0',
           engagement: user.engagement || user.engagementRate || '0%',
