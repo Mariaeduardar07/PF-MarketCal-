@@ -2,8 +2,10 @@
 import { useState } from "react";
 import styles from "./MiniCalendar.module.css";
 
-export default function MiniCalendar() {
+export default function MiniCalendar({ upcomingPosts = [] }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const today = new Date();
 
   const daysOfWeek = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -11,6 +13,27 @@ export default function MiniCalendar() {
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
   ];
+
+  // Função para verificar se uma postagem tem data futura
+  const isUpcoming = (scheduledAt) => {
+    const postDate = new Date(scheduledAt);
+    const now = new Date();
+    return postDate > now;
+  };
+
+  // Contar postagens agendadas (futuras) para um dia específico
+  const getPostsForDay = (day, month, year) => {
+    return upcomingPosts.filter((post) => {
+      if (!isUpcoming(post.scheduledAt)) return false;
+      
+      const postDate = new Date(post.scheduledAt);
+      return (
+        postDate.getDate() === day &&
+        postDate.getMonth() === month &&
+        postDate.getFullYear() === year
+      );
+    });
+  };
 
   const getDaysInMonth = (date) => {
     const year = date.getFullYear();
@@ -24,7 +47,7 @@ export default function MiniCalendar() {
 
     // Dias vazios antes do primeiro dia do mês
     for (let i = 0; i < startingDay; i++) {
-      days.push({ day: null, isCurrentMonth: false });
+      days.push({ day: null, isCurrentMonth: false, posts: [] });
     }
 
     // Dias do mês
@@ -34,10 +57,14 @@ export default function MiniCalendar() {
         date.getMonth() === today.getMonth() &&
         date.getFullYear() === today.getFullYear();
 
+      const postsForDay = getPostsForDay(i, month, year);
+
       days.push({
         day: i,
         isCurrentMonth: true,
         isToday,
+        posts: postsForDay,
+        hasUpcomingPosts: postsForDay.length > 0,
       });
     }
 
@@ -54,6 +81,28 @@ export default function MiniCalendar() {
 
   const goToToday = () => {
     setCurrentDate(new Date());
+  };
+
+  const handleDayClick = (dayObj) => {
+    if (dayObj.hasUpcomingPosts && dayObj.isCurrentMonth) {
+      setSelectedDay(dayObj);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedDay(null);
+  };
+
+  const formatDate = (day) => {
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    return date.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+  };
+
+  const formatTime = (scheduledAt) => {
+    const date = new Date(scheduledAt);
+    return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   };
 
   const days = getDaysInMonth(currentDate);
@@ -113,10 +162,17 @@ export default function MiniCalendar() {
               ${styles.day}
               ${!dayObj.isCurrentMonth ? styles.dayEmpty : ""}
               ${dayObj.isToday ? styles.dayToday : ""}
+              ${dayObj.hasUpcomingPosts ? styles.dayWithPosts : ""}
             `}
+            onClick={() => handleDayClick(dayObj)}
           >
             {dayObj.day && (
-              <span className={styles.dayNumber}>{dayObj.day}</span>
+              <>
+                <span className={styles.dayNumber}>{dayObj.day}</span>
+                {dayObj.hasUpcomingPosts && (
+                  <div className={styles.postBar}></div>
+                )}
+              </>
             )}
           </div>
         ))}
@@ -131,6 +187,35 @@ export default function MiniCalendar() {
           </span>
         </div>
       </div>
+
+      {/* Modal de Postagens do Dia */}
+      {isModalOpen && selectedDay && (
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h3 className={styles.modalTitle}>
+                Postagens de {formatDate(selectedDay.day)}
+              </h3>
+              <button className={styles.modalClose} onClick={closeModal}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+            <div className={styles.modalBody}>
+              {selectedDay.posts.map((post, index) => (
+                <div key={post.id || index} className={styles.postItem}>
+                  <div className={styles.postTime}>{formatTime(post.scheduledAt)}</div>
+                  <div className={styles.postContent}>
+                    <div className={styles.postPlatform}>{post.platform}</div>
+                    <p className={styles.postText}>{post.content}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

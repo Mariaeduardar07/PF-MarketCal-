@@ -104,12 +104,14 @@
 .day {
   aspect-ratio: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
   position: relative;
+  padding: 2px;
 }
 
 .day:hover:not(.dayEmpty):not(.dayToday) {
@@ -124,6 +126,31 @@
   font-size: 0.8rem;
   font-weight: 500;
   color: #374151;
+}
+
+/* ===== DIAS COM POSTAGENS AGENDADAS ===== */
+.dayWithPosts {
+  background: linear-gradient(135deg, rgba(132, 231, 210, 0.15) 0%, rgba(71, 196, 172, 0.1) 100%);
+  border: 1.5px solid rgba(71, 196, 172, 0.3);
+  cursor: pointer;
+}
+
+.dayWithPosts:hover {
+  background: linear-gradient(135deg, rgba(132, 231, 210, 0.25) 0%, rgba(71, 196, 172, 0.2) 100%);
+  border-color: rgba(71, 196, 172, 0.5);
+  transform: scale(1.05);
+}
+
+.postBar {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: linear-gradient(135deg, #84e7d2 0%, #47c4ac 100%);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(71, 196, 172, 0.3);
 }
 
 /* ===== DIA ATUAL (HOJE) ===== */
@@ -162,6 +189,145 @@
   height: 8px;
   border-radius: 50%;
   background: linear-gradient(135deg, #5dd4c0 0%, #47c4ac 100%);
+}
+
+/* ===== MODAL ===== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f3f4f6;
+  background: linear-gradient(135deg, #84e7d2 0%, #47c4ac 100%);
+}
+
+.modalTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.modalClose {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modalClose:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.modalClose svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modalBody {
+  padding: 20px 24px;
+  overflow-y: auto;
+  max-height: calc(80vh - 80px);
+}
+
+.postItem {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border-left: 4px solid #47c4ac;
+  transition: all 0.2s ease;
+}
+
+.postItem:hover {
+  background: #f3f4f6;
+  transform: translateX(4px);
+}
+
+.postItem:last-child {
+  margin-bottom: 0;
+}
+
+.postTime {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #47c4ac;
+  min-width: 50px;
+}
+
+.postContent {
+  flex: 1;
+}
+
+.postPlatform {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.postText {
+  font-size: 0.9rem;
+  color: #374151;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== RESPONSIVE ===== */

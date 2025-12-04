@@ -121,7 +121,7 @@ export default function Dashboard() {
                   <div className={styles.quickActions}>
                     {/* Calendário */}
                     <div className={styles.calendarCard}>
-                      <MiniCalendar />
+                      <MiniCalendar upcomingPosts={dashboardData?.upcomingPosts || []} />
                     </div>
 
                     {/* Ações */}
