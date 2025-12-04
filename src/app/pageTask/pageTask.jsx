@@ -24,7 +24,12 @@ const PageTask = () => {
         const postsData = await fetchPosts();
         
         // Combinar posts da API com posts do contexto
-        const allPosts = [...(contextPosts || []), ...(postsData || [])];
+        const combinedPosts = [...(contextPosts || []), ...(postsData || [])];
+        
+        // Remover duplicatas baseado no ID
+        const allPosts = Array.from(
+          new Map(combinedPosts.map(post => [post.id, post])).values()
+        );
         
         // Se não tiver posts ainda, retorna estrutura vazia
         if (allPosts.length === 0) {
