@@ -1,4 +1,5 @@
 import "./globals.css";
+import { PostsProvider } from "../context/PostsContext";
 
 export const metadata = {
     title: "MarketCal",
@@ -11,7 +12,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html>
-            <body>{children}</body>
+            <body>
+                <PostsProvider>
+                    {children}
+                </PostsProvider>
+            </body>
         </html>
     );
 }

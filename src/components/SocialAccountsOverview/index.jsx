@@ -48,6 +48,7 @@ const platformColors = {
 
 export default function SocialAccountsOverview({ accounts = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [imageErrors, setImageErrors] = useState({});
   const cardsPerView = 3;
   
   const totalPages = Math.ceil(accounts.length / cardsPerView);
@@ -70,6 +71,10 @@ export default function SocialAccountsOverview({ accounts = [] }) {
     currentIndex * cardsPerView,
     (currentIndex + 1) * cardsPerView
   );
+
+  const handleImageError = (accountId) => {
+    setImageErrors(prev => ({ ...prev, [accountId]: true }));
+  };
 
   if (!accounts || accounts.length === 0) {
     return (
@@ -139,12 +144,19 @@ export default function SocialAccountsOverview({ accounts = [] }) {
                 <div 
                   className={styles.avatar}
                   style={{ 
-                    background: account.imageUrl 
-                      ? `url(${account.imageUrl}) center/cover` 
+                    background: !imageErrors[account.id] && account.imageUrl 
+                      ? 'transparent' 
                       : platformColors[account.platform] || '#5dd4c0'
                   }}
                 >
-                  {!account.imageUrl && (
+                  {!imageErrors[account.id] && account.imageUrl ? (
+                    <img 
+                      src={account.imageUrl} 
+                      alt={account.name}
+                      className={styles.avatarImage}
+                      onError={() => handleImageError(account.id)}
+                    />
+                  ) : (
                     <span className={styles.avatarInitial}>
                       {account.name?.charAt(0)?.toUpperCase() || '?'}
                     </span>
