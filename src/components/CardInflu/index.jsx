@@ -12,6 +12,8 @@ const CardInflu = ({
   platforms,
   onClick 
 }) => {
+  const [imgError, setImgError] = React.useState(false);
+  
   // Função para renderizar o ícone da plataforma
   const getPlatformIcon = (platformName) => {
     if (!platformName) return null;
@@ -57,9 +59,10 @@ const CardInflu = ({
       <div className={styles.cardHeader}>
         <div className={styles.avatarContainer}>
           <img 
-            src={avatar || '/image/logo.png'} 
+            src={!imgError && avatar ? avatar : '/image/logo.png'} 
             alt={name} 
             className={styles.avatar}
+            onError={() => setImgError(true)}
           />
           {verified && (
             <span className={styles.verifiedBadge}>✓</span>

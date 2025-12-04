@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MarketCal Frontend
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+**Aplicação web moderna para gerenciamento de calendário de mercado**
+
+[![Next.js](https://img.shields.io/badge/Next.js-black?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+
+</div>
+
+---
+
+## 📋 Sobre o Projeto
+
+MarketCal Frontend é uma aplicação web desenvolvida com **React** e **Next.js** para planejamento e gerenciamento de calendário de mercado. Utilizando renderização do lado do servidor (SSR) e geração de sites estáticos (SSG), o projeto oferece performance otimizada e melhor indexação para motores de busca.
+
+## ✨ Funcionalidades
+
+- 📅 **Calendário Interativo** - Visualização intuitiva de postagens organizadas por data
+- ⏰ **Agendamento de Conteúdo** - Planeje e programe publicações para datas específicas
+- 📊 **Gerenciamento de Publicações** - Controle completo sobre o conteúdo do mercado
+- 🎨 **Interface Moderna** - Design responsivo e fácil de usar
+- ⚡ **Performance Otimizada** - Carregamento rápido 
+
+## 🚀 Tecnologias
+
+- **[React](https://reactjs.org/)** - Biblioteca JavaScript para construção de interfaces
+- **[Next.js](https://nextjs.org/)** - Framework React para aplicações web modernas
+- **[Node.js](https://nodejs.org/)** - Ambiente de execução JavaScript
+
+## 📦 Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- **Node.js** 16.x ou superior
+- **npm** ou **yarn** (gerenciador de pacotes)
+
+## 🔧 Instalação e Configuração
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/Mariaeduardar07/MarketCal-Frontend.git
+cd MarketCal-Frontend
+```
+
+### 2. Instale as dependências
+
+```bash
+npm install
+# ou
+yarn install
+```
+
+### 3. Execute o projeto
+
+#### Modo de desenvolvimento
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse **http://localhost:3000** no seu navegador para visualizar a aplicação.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+#### Build para produção
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Gerar build otimizado
+npm run build
+# ou
+yarn build
 
-## Learn More
+# Executar em produção
+npm start
+# ou
+yarn start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Estrutura do Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+MarketCal-Frontend/
+│
+├── pages/              # Páginas e rotas da aplicação (roteamento Next.js)
+├── components/         # Componentes React reutilizáveis
+├── public/             # Arquivos estáticos (imagens, fontes, etc.)
+├── styles/             # Arquivos CSS e estilos globais
+├── package.json        # Dependências e scripts do projeto
+└── next.config.js      # Configurações do Next.js
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🤝 Contribuindo
 
-## Deploy on Vercel
+Contribuições são sempre bem-vindas! Para contribuir:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/MinhaFeature`)
+5. Abra um Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 Licença
+
+Este projeto está sob a licença **MIT**. Veja o arquivo `LICENSE` para mais detalhes.
+
+---
+
+<div align="center">
+
+Desenvolvido com ❤️ usando Next.js e React
+
+</div>
